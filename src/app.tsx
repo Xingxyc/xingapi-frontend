@@ -4,6 +4,7 @@ import { LinkOutlined } from '@ant-design/icons';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
+import Settings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { requestConfig } from './requestConfig';
 import { getLoginUserUsingGET } from './services/xingapi-backend/userController';
@@ -16,6 +17,7 @@ const loginPath = '/user/login';
 export async function getInitialState(): Promise<InitialState> {
   const state: InitialState = {
     loginUser: undefined,
+    settings: Settings,
   };
 
   try {
@@ -35,7 +37,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
-      src: initialState?.loginUser?.name,
+      src: initialState?.loginUser?.userName,
       title: <AvatarName />,
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
